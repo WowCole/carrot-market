@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { cls } from "../libs/utils";
+import { cn } from "@/libs/client/utils";
 import { useRouter } from "next/router";
 
 interface LayoutProps {
@@ -22,7 +22,7 @@ export default function Layout({
   };
   return (
     <div>
-      <div className="fixed top-0 flex h-12 w-full max-w-xl items-center justify-center  border-b bg-white px-10 text-lg  font-medium text-gray-800">
+      <div className="fixed top-0 flex h-12 w-full max-w-xl items-center justify-center border-b bg-white px-10 text-lg font-medium text-gray-800">
         {canGoBack ? (
           <button onClick={onClick} className="absolute left-4">
             <svg
@@ -42,15 +42,15 @@ export default function Layout({
           </button>
         ) : null}
         {title ? (
-          <span className={cls(canGoBack ? "mx-auto" : "", "")}>{title}</span>
+          <span className={cn(canGoBack ? "mx-auto" : "", "")}>{title}</span>
         ) : null}
       </div>
-      <div className={cls("pt-12", hasTabBar ? "pb-24" : "")}>{children}</div>
+      <div className={cn("pt-12", hasTabBar ? "pb-24" : "")}>{children}</div>
       {hasTabBar ? (
         <nav className="fixed bottom-0 flex w-full max-w-xl justify-between border-t bg-white px-10 pb-5 pt-3 text-xs text-gray-700">
           <Link
             href="/"
-            className={cls(
+            className={cn(
               "flex flex-col items-center space-y-2 ",
               router.pathname === "/"
                 ? "text-orange-500"
@@ -75,7 +75,7 @@ export default function Layout({
           </Link>
           <Link
             href="/community"
-            className={cls(
+            className={cn(
               "flex flex-col items-center space-y-2 ",
               router.pathname === "/community"
                 ? "text-orange-500"
@@ -100,7 +100,7 @@ export default function Layout({
           </Link>
           <Link
             href="/chats"
-            className={cls(
+            className={cn(
               "flex flex-col items-center space-y-2 ",
               router.pathname === "/chats"
                 ? "text-orange-500"
@@ -125,7 +125,7 @@ export default function Layout({
           </Link>
           <Link
             href="/live"
-            className={cls(
+            className={cn(
               "flex flex-col items-center space-y-2 ",
               router.pathname === "/live"
                 ? "text-orange-500"
@@ -150,7 +150,7 @@ export default function Layout({
           </Link>
           <Link
             href="/profile"
-            className={cls(
+            className={cn(
               "flex flex-col items-center space-y-2 ",
               router.pathname === "/profile"
                 ? "text-orange-500"

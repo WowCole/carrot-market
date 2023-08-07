@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
-import Item from "../../components/item";
-import Layout from "../../components/layout";
+import Item from "@/components/item";
+import Layout from "@/components/layout";
 
 const Loved: NextPage = () => {
   return (
     <Layout title="관심목록" canGoBack>
-      <div className="flex flex-col space-y-5 pb-10  divide-y">
+      <div className="flex flex-col space-y-5 divide-y  pb-10">
         {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((_, i) => (
           <Item
             key={i}

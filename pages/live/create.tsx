@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
-import Button from "../../components/button";
-import Input from "../../components/input";
-import Layout from "../../components/layout";
-import TextArea from "../../components/textarea";
+import Button from "@components/button";
+import Input from "@components/input";
+import Layout from "@components/layout";
+import TextArea from "@components/textarea";
 
 const Create: NextPage = () => {
   return (
     <Layout canGoBack title="Go Live">
-      <form className=" space-y-4 py-10 px-4">
+      <form className="space-y-4 px-4 py-10 ">
         <Input required label="Name" name="name" type="text" />
         <Input
           required
