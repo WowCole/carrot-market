@@ -1,32 +1,21 @@
-import { useState } from "react";
+import { useMutation as mutation } from "@tanstack/react-query";
 
-interface UseMutationState {
-  loading: boolean;
-  data?: object;
-  error?: object;
-}
-
-type UseMutationResult = [(data: any) => void, UseMutationState];
-
-const useMutation = (url: string): UseMutationResult => {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<undefined | any>(undefined);
-  const [error, setError] = useState<undefined | any>(undefined);
-  const mutation = (data: any) => {
-    setLoading(true);
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json().catch(() => {}))
-      .then(setData)
-      .catch(setError)
-      .finally(() => setLoading(false));
-  };
-  return [mutation, { loading, data, error }];
+const useMutation = <T extends {}>(url: string, refetch?: any) => {
+  return mutation({
+    mutationFn: (data: unknown) =>
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data: T) => {
+          refetch ? refetch() : null;
+          return data;
+        }),
+  });
 };
 
 export default useMutation;

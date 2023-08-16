@@ -2,6 +2,9 @@ import React from "react";
 import Link from "next/link";
 import { cn } from "@/libs/client/utils";
 import { useRouter } from "next/router";
+import { useQuery } from "@tanstack/react-query";
+import useMutation from "@/libs/client/useMutation";
+import { queryClient } from "@/pages/_app";
 
 interface LayoutProps {
   title?: string;
@@ -16,10 +19,18 @@ export default function Layout({
   hasTabBar,
   children,
 }: LayoutProps) {
+  const { mutate: logout } = useMutation("/api/users/logout");
   const router = useRouter();
   const onClick = () => {
     router.back();
   };
+
+  const handleLogout = () => {
+    queryClient.clear();
+    logout({});
+    router.push("/enter");
+  };
+
   return (
     <div>
       <div className="fixed top-0 flex h-12 w-full max-w-xl items-center justify-center border-b bg-white px-10 text-lg font-medium text-gray-800">
@@ -44,6 +55,7 @@ export default function Layout({
         {title ? (
           <span className={cn(canGoBack ? "mx-auto" : "", "")}>{title}</span>
         ) : null}
+        <button onClick={handleLogout}>logout</button>
       </div>
       <div className={cn("pt-12", hasTabBar ? "pb-24" : "")}>{children}</div>
       {hasTabBar ? (
